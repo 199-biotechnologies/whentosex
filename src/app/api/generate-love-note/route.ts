@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         }
       ],
       temperature: 0.8,
-      max_tokens: isDetailed ? 1500 : 800,
+      max_tokens: isDetailed ? 750 : 400,
     });
 
     const loveNote = completion.choices[0]?.message?.content;
@@ -100,11 +100,11 @@ For this detailed version, also include:
 - References to relationship research and circadian rhythms
 - Specific next steps they can take together
 
-Length: Make this a comprehensive, detailed love note (1000-1200 words).
+Length: Make this a concise, focused love note (500-600 words).
     `;
   }
 
   return basePrompt + `
-Length: Create a concise but heartfelt love note (300-500 words).
+Length: Create a concise but heartfelt love note (200-300 words).
   `;
 }

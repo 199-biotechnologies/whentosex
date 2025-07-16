@@ -43,6 +43,11 @@ export default function Quiz({ partnerInfo }: QuizProps) {
       setIsGeneratingNote(true);
       try {
         const result = calculateQuizResult(newResponses, partnerInfo);
+        
+        // Store data in localStorage for payment success page
+        localStorage.setItem('partnerInfo', JSON.stringify(partnerInfo));
+        localStorage.setItem('quizResult', JSON.stringify(result));
+        
         const aiNote = await generateAILoveNote(partnerInfo, result, false);
         setAiLoveNote(aiNote);
       } catch (error) {

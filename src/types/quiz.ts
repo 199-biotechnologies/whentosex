@@ -34,6 +34,16 @@ export interface PartnerInfo {
   relationshipType: 'wife' | 'girlfriend' | 'partner';
   relationshipLength: string;
   favoriteThings: string;
+  loveLanguage: string;
+  scheduleType: 'morning' | 'evening' | 'flexible';
+  stressLevel: 'low' | 'moderate' | 'high';
+  communicationStyle: 'direct' | 'subtle' | 'romantic';
+  specialOccasions: string;
+  // User info
+  userAge: string;
+  partnerAge: string;
+  livingTogether: boolean;
+  relationshipGoals: string;
 }
 
 export interface QuizResponse {

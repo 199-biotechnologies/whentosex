@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { generateDetailedLoveNote } from '@/utils/loveNotes';
+import { generateAILoveNote } from '@/utils/loveNotes';
 import { PartnerInfo, QuizResult } from '@/types/quiz';
 
 function SuccessPageContent() {
@@ -22,10 +22,20 @@ function SuccessPageContent() {
         const partnerInfo: PartnerInfo = JSON.parse(storedPartnerInfo);
         const quizResult: QuizResult = JSON.parse(storedQuizResult);
         
-        const detailed = generateDetailedLoveNote(partnerInfo, quizResult);
-        setDetailedNote(detailed);
+        // Generate AI-powered detailed love note
+        generateAILoveNote(partnerInfo, quizResult, true)
+          .then(detailed => {
+            setDetailedNote(detailed);
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error('Error generating detailed note:', error);
+            setDetailedNote('Sorry, there was an error generating your detailed love note. Please contact support.');
+            setLoading(false);
+          });
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     }
   }, [searchParams]);
 
