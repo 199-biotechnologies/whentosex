@@ -1,7 +1,8 @@
 'use client';
 
 import { QuizResult as QuizResultType, QuizCategory, PartnerInfo } from '@/types/quiz';
-import PaymentButton from './PaymentButton';
+import { generateAILoveNote } from '@/utils/loveNotes';
+import { useState } from 'react';
 
 interface QuizResultProps {
   result: QuizResultType;
@@ -10,6 +11,21 @@ interface QuizResultProps {
 }
 
 export default function QuizResult({ result, partnerInfo, onRestart }: QuizResultProps) {
+  const [detailedNote, setDetailedNote] = useState<string>('');
+  const [isGeneratingDetailed, setIsGeneratingDetailed] = useState(false);
+
+  const handleGenerateDetailed = async () => {
+    setIsGeneratingDetailed(true);
+    try {
+      const detailed = await generateAILoveNote(partnerInfo, result, true);
+      setDetailedNote(detailed);
+    } catch (error) {
+      console.error('Error generating detailed note:', error);
+      alert('Sorry, there was an error generating your detailed note. Please try again.');
+    } finally {
+      setIsGeneratingDetailed(false);
+    }
+  };
   const getCategoryColor = (category: 'green' | 'yellow' | 'red') => {
     switch (category) {
       case 'green':
@@ -105,23 +121,52 @@ export default function QuizResult({ result, partnerInfo, onRestart }: QuizResul
         </h3>
         <div className="text-center mb-4">
           <p className="text-gray-700 mb-2">
-            Get a detailed love note with complete relationship analysis!
+            Get a detailed AI-generated love note with complete relationship analysis - FREE!
           </p>
           <ul className="text-sm text-gray-600 space-y-1">
-            <li>• Longer, more personalized love note</li>
+            <li>• Longer, more personalized AI-generated love note</li>
             <li>• Detailed breakdown of all relationship factors</li>
             <li>• Specific improvement suggestions</li>
             <li>• Personalized tips based on {partnerInfo.partnerName}&apos;s interests</li>
+            <li>• Psychology-based relationship insights</li>
           </ul>
         </div>
-        <PaymentButton 
-          partnerInfo={partnerInfo} 
-          quizResult={result}
-          onPaymentSuccess={(sessionId) => {
-            console.log('Payment successful:', sessionId);
-            // Handle payment success
-          }}
-        />
+        
+        {detailedNote ? (
+          <div className="bg-white p-6 rounded-lg border-2 border-pink-200 mb-4">
+            <h4 className="text-lg font-semibold text-gray-800 mb-3">
+              🎯 Your Detailed AI Love Note
+            </h4>
+            <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+              {detailedNote}
+            </div>
+            <div className="mt-4 pt-4 border-t border-pink-200">
+              <p className="text-sm text-pink-600 font-medium">
+                💖 Copy this detailed message and send it to {partnerInfo.partnerName}!
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={handleGenerateDetailed}
+            disabled={isGeneratingDetailed}
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 px-8 rounded-lg font-semibold hover:from-pink-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
+          >
+            {isGeneratingDetailed ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Generating Detailed Love Note...
+              </span>
+            ) : (
+              <>
+                🤖 Generate Detailed AI Love Note - FREE!
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       <div className="text-center space-y-4">

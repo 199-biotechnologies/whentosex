@@ -60,7 +60,7 @@ export default function Home() {
             When to Sex
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            The scientifically-backed quiz to determine if tonight&apos;s the night
+            The scientifically-backed quiz with AI-powered personalized love notes
           </p>
           
           <div className="text-left mb-8 bg-blue-50 p-6 rounded-lg">
@@ -78,10 +78,10 @@ export default function Home() {
 
           <div className="text-center mb-8">
             <p className="text-gray-600 mb-4">
-              Answer 10 evidence-based questions to get your personalized recommendation
+              Answer 10 evidence-based questions to get your personalized recommendation and AI-generated love note
             </p>
             <p className="text-sm text-gray-500">
-              Results range from &quot;Green Light!&quot; to &quot;Maybe Later&quot; with specific advice
+              Results include custom love notes powered by GPT-4, tailored to your relationship
             </p>
           </div>
 

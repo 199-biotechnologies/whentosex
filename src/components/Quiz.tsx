@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { quizQuestions } from '@/data/questions';
 import { QuizResponse, PartnerInfo } from '@/types/quiz';
 import { calculateQuizResult } from '@/utils/scoring';
+import { generateAILoveNote } from '@/utils/loveNotes';
 import QuizQuestion from './QuizQuestion';
 import QuizResult from './QuizResult';
 
@@ -16,6 +17,8 @@ export default function Quiz({ partnerInfo }: QuizProps) {
   const [responses, setResponses] = useState<QuizResponse[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [isGeneratingNote, setIsGeneratingNote] = useState(false);
+  const [aiLoveNote, setAiLoveNote] = useState<string>('');
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === quizQuestions.length - 1;
@@ -24,7 +27,7 @@ export default function Quiz({ partnerInfo }: QuizProps) {
     setSelectedOption(value);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (selectedOption === null) return;
 
     const newResponse: QuizResponse = {
@@ -37,6 +40,16 @@ export default function Quiz({ partnerInfo }: QuizProps) {
     setResponses(newResponses);
 
     if (isLastQuestion) {
+      setIsGeneratingNote(true);
+      try {
+        const result = calculateQuizResult(newResponses, partnerInfo);
+        const aiNote = await generateAILoveNote(partnerInfo, result, false);
+        setAiLoveNote(aiNote);
+      } catch (error) {
+        console.error('Error generating AI love note:', error);
+        // Will fall back to static generation in the result component
+      }
+      setIsGeneratingNote(false);
       setShowResult(true);
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -49,11 +62,31 @@ export default function Quiz({ partnerInfo }: QuizProps) {
     setResponses([]);
     setShowResult(false);
     setSelectedOption(null);
+    setAiLoveNote('');
   };
 
   if (showResult) {
     const result = calculateQuizResult(responses, partnerInfo);
+    if (aiLoveNote) {
+      result.loveNote = aiLoveNote;
+    }
     return <QuizResult result={result} partnerInfo={partnerInfo} onRestart={handleRestart} />;
+  }
+
+  if (isGeneratingNote) {
+    return (
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-pink-500 mx-auto mb-4"></div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            Creating Your Personalized Love Note
+          </h2>
+          <p className="text-gray-600">
+            Our AI is crafting the perfect message for {partnerInfo.partnerName}...
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (

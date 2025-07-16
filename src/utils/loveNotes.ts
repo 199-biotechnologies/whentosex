@@ -1,5 +1,32 @@
 import { PartnerInfo, QuizResult } from '@/types/quiz';
 
+export const generateAILoveNote = async (partnerInfo: PartnerInfo, result: QuizResult, isDetailed: boolean = false): Promise<string> => {
+  try {
+    const response = await fetch('/api/generate-love-note', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        partnerInfo,
+        quizResult: result,
+        isDetailed,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate AI love note');
+    }
+
+    const { loveNote } = await response.json();
+    return loveNote;
+  } catch (error) {
+    console.error('Error generating AI love note:', error);
+    // Fallback to static generation if AI fails
+    return generateLoveNote(partnerInfo, result);
+  }
+};
+
 export const generateLoveNote = (partnerInfo: PartnerInfo, result: QuizResult): string => {
   const { partnerName, relationshipType, relationshipLength, favoriteThings } = partnerInfo;
   
