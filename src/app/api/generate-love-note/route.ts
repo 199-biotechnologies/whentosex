@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: "You are a relationship expert who creates personalized, romantic, and scientifically-informed love notes. Your notes should be warm, encouraging, and help couples connect meaningfully."
+          content: "You are an expert psychologist, writer, and relationship specialist who deeply understands the psychology of intimacy and persuasion. You know how subtle wording, emotional triggers, and psychological principles can influence receptivity and openness. Your goal, as you write personalized messages, is to craft content that psychologically primes the recipient to be more open to intimacy and connection. You understand that the right words at the right time can dramatically improve a partner's willingness to engage romantically. Use proven psychological techniques like validation, anticipation, emotional connection, and subtle suggestion to make your messages irresistibly compelling while maintaining authenticity and love."
         },
         {
           role: "user",
@@ -55,11 +55,11 @@ function createLoveNotePrompt(partnerInfo: PartnerInfo, quizResult: QuizResult, 
   
   let promptType = '';
   if (category === 'green') {
-    promptType = 'Tonight looks perfect for intimacy! Create an encouraging and romantic message.';
+    promptType = 'Tonight looks perfect for intimacy! Create a psychologically compelling message that builds anticipation, validates their desirability, and uses subtle persuasion techniques to maximize their openness to physical connection. Use emotional triggers and create irresistible romantic momentum.';
   } else if (category === 'yellow') {
-    promptType = 'Tonight has potential but needs some adjustment. Create a supportive message with gentle suggestions.';
+    promptType = 'Tonight has potential but needs strategic approach. Create a message that psychologically reduces barriers, builds emotional safety, and gently guides them toward intimacy through validation and subtle suggestion. Focus on building receptivity through emotional connection.';
   } else {
-    promptType = 'Tonight might be better for other forms of connection. Create a loving message about alternative intimacy.';
+    promptType = 'Tonight requires a softer psychological approach. Create a message that maintains romantic connection while strategically planting seeds for future intimacy. Use validation and emotional bonding to keep romantic potential alive without pressure.';
   }
 
   const basePrompt = `
@@ -79,28 +79,33 @@ Context:
 Instructions:
 ${promptType}
 
-Requirements:
-- Use ${partnerName}'s name naturally throughout
-- Reference their ${relationshipType} relationship${timeReference}
-- ${favoriteThings ? `Subtly incorporate their interests: ${favoriteThings}` : ''}
-- Be romantic but not overly explicit
-- Include psychology-based insights about timing and connection
-- Make it feel personal and heartfelt
-- End with a clear, loving invitation or suggestion
+Psychological Strategy Requirements:
+- Use ${partnerName}'s name to create personal connection and psychological ownership
+- Reference their ${relationshipType} relationship${timeReference} to activate commitment psychology
+- ${favoriteThings ? `Incorporate their interests (${favoriteThings}) to trigger positive emotional associations` : ''}
+- Use validation language to boost their self-esteem and receptivity
+- Apply psychological principles like reciprocity, anticipation, and emotional mirroring
+- Include subtle suggestions that increase openness without creating pressure
+- Build emotional momentum through carefully chosen romantic language
+- End with an irresistible but gentle invitation that feels natural and desired
+- Use psychological triggers like scarcity ("tonight"), validation ("you're incredible"), and anticipation ("I've been thinking about you")
+- Make them feel desired, valued, and psychologically safe to say yes
   `;
 
   if (isDetailed) {
     return basePrompt + `
     
 For this detailed version, also include:
-- Specific analysis of each relationship factor
-- Personalized suggestions for improvement
-- Deeper psychological insights about intimacy timing
-- More elaborate romantic language
-- References to relationship research and circadian rhythms
-- Specific next steps they can take together
+- Psychological analysis of each relationship factor with strategic insights
+- Advanced persuasion techniques and subtle influence strategies
+- Deeper psychological triggers for intimacy receptivity
+- More sophisticated emotional manipulation (positive and loving)
+- Strategic timing advice based on psychology and circadian rhythms
+- Specific psychological "moves" they can make to increase success
+- Advanced relationship psychology and behavioral triggers
+- Create maximum psychological impact while maintaining authenticity
 
-Length: Make this a concise, focused love note (500-600 words).
+Length: Make this a strategically focused, psychologically powerful love note (500-600 words).
     `;
   }
 
