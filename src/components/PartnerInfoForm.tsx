@@ -31,20 +31,35 @@ export default function PartnerInfoForm({ onSubmit }: PartnerInfoFormProps) {
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && partnerInfo.partnerName.trim()) {
+      handleSubmit(e);
+    }
+  };
+
   const handleChange = (field: keyof PartnerInfo, value: string | boolean) => {
     setPartnerInfo(prev => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-        Let's Get Personal
-      </h2>
-      <p className="text-gray-700 mb-12 text-center leading-relaxed">
-        The more we understand your unique connection, the better we can craft personalized insights and love notes!
-      </p>
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/30 via-white/50 to-purple-50/30 animate-pulse"></div>
+      
+      <div className="relative z-10">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full mb-4 sm:mb-6 shadow-lg">
+            <span className="text-sm font-bold">✨ Step 1 of 2</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4 sm:mb-6">
+            Let's Get Personal 💕
+          </h2>
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed font-medium max-w-2xl mx-auto">
+            The more we understand your unique connection, the better we can craft personalized insights and love notes!
+          </p>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} onKeyPress={handleKeyPress} className="space-y-8">
         {/* Basic Information */}
         <div className="bg-pink-50 p-8 rounded-xl border border-pink-100">
           <h3 className="text-lg font-semibold text-gray-900 mb-6">👫 Basic Information</h3>
@@ -61,6 +76,7 @@ export default function PartnerInfoForm({ onSubmit }: PartnerInfoFormProps) {
                 placeholder="What do you call your partner?"
                 className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200"
                 required
+                autoFocus
               />
             </div>
 
@@ -293,12 +309,18 @@ export default function PartnerInfoForm({ onSubmit }: PartnerInfoFormProps) {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 px-8 rounded-xl font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-lg"
-        >
-          Continue to Science Quiz →
-        </button>
+        <div className="pt-4 sm:pt-6">
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 text-white py-4 sm:py-5 px-8 rounded-2xl font-bold hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 transform hover:-translate-y-1 text-lg sm:text-xl border-2 border-white/20"
+          >
+            Continue to Science Quiz 🧠✨
+          </button>
+          <p className="text-center text-sm text-gray-500 mt-3 font-medium">
+            Step 2: Answer 10 quick questions
+          </p>
+        </div>
+      </div>
       </form>
     </div>
   );

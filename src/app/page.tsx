@@ -18,14 +18,17 @@ export default function Home() {
 
   if (showQuiz && partnerInfo) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">
+      <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-lg mb-4">
+              <span className="text-sm font-medium bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">✨ AI-Powered Timing for {partnerInfo.partnerName}</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
               When to Sex
             </h1>
-            <p className="text-gray-600">
-              Science-backed relationship timing for you and {partnerInfo.partnerName}
+            <p className="text-sm sm:text-base text-gray-600 font-medium">
+              Science-backed relationship timing
             </p>
           </div>
           <Quiz partnerInfo={partnerInfo} />
@@ -36,13 +39,16 @@ export default function Home() {
 
   if (showPartnerForm) {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">
+      <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50 py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-lg mb-4">
+              <span className="text-sm font-medium bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">✨ Science meets AI for perfect timing</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
               When to Sex
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600 font-medium">
               Science-backed relationship timing
             </p>
           </div>
@@ -53,57 +59,79 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-gray-800">When to Sex</h1>
-            <span className="text-sm bg-pink-100 text-pink-600 px-2 py-1 rounded">Science-Based</span>
+      <header className="bg-white/80 backdrop-blur-lg border-b border-gray-100/50 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white text-lg sm:text-xl font-bold">💕</span>
+            </div>
+            <div>
+              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">When to Sex</h1>
+              <span className="text-xs bg-gradient-to-r from-pink-500 to-purple-600 text-white px-2 py-0.5 rounded-full font-medium">AI-Powered</span>
+            </div>
           </div>
-          <div className="flex space-x-4 text-sm">
+          <div className="hidden sm:flex space-x-6 text-sm font-medium">
             <a href="#how-it-works" className="text-gray-600 hover:text-pink-600 transition-colors">How It Works</a>
             <a href="#features" className="text-gray-600 hover:text-pink-600 transition-colors">Features</a>
             <a href="/privacy" className="text-gray-600 hover:text-pink-600 transition-colors">Privacy</a>
           </div>
+          {/* Mobile menu button */}
+          <button className="sm:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h2 className="text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            Stop Guessing.<br />
-            <span className="text-pink-600">Start Knowing.</span>
-          </h2>
-          <p className="text-2xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-            The first science-backed app that reveals the perfect moment for intimacy with your partner
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <button
-              onClick={() => setShowPartnerForm(true)}
-              className="bg-gradient-to-r from-pink-500 to-pink-600 text-white text-xl font-semibold py-4 px-10 rounded-xl hover:from-pink-600 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              Take the Quiz Now - FREE
-            </button>
-            <p className="text-gray-600 text-sm font-medium">
-              ✨ Personalized AI love notes for just $1.99
-            </p>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="text-center">
+          {/* Floating badges */}
+          <div className="flex justify-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-pink-200/50 shadow-lg">
+              <span className="text-sm font-medium bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">✨ Science meets AI for perfect timing</span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-700 font-medium">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full shadow-sm"></div>
-              <span>Private & Secure</span>
+          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black mb-6 sm:mb-8 leading-[1.1]">
+            <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">Stop Guessing.</span>
+            <br />
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 bg-clip-text text-transparent">Start Knowing.</span>
+          </h2>
+          
+          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+            The AI-powered app that reveals your perfect intimate moments using psychology and data ✨
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16">
+            <button
+              onClick={() => setShowPartnerForm(true)}
+              className="w-full sm:w-auto bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 text-white text-lg sm:text-xl font-bold py-4 sm:py-5 px-8 sm:px-12 rounded-2xl hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 transform hover:-translate-y-1 border-2 border-white/20"
+            >
+              Take the Quiz - FREE 🚀
+            </button>
+            <div className="flex items-center space-x-2 text-gray-600">
+              <span className="text-2xl">💝</span>
+              <span className="text-sm sm:text-base font-medium">AI love notes for $1.99</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full shadow-sm"></div>
-              <span>Research-Based</span>
+          </div>
+
+          {/* Social proof badges */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm font-medium">
+            <div className="flex items-center space-x-2 px-3 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-green-200/50">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-gray-700">100% Private</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-purple-500 rounded-full shadow-sm"></div>
-              <span>AI-Powered</span>
+            <div className="flex items-center space-x-2 px-3 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-blue-200/50">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              <span className="text-gray-700">Research-Based</span>
+            </div>
+            <div className="flex items-center space-x-2 px-3 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-purple-200/50">
+              <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+              <span className="text-gray-700">AI-Powered</span>
             </div>
           </div>
         </div>
