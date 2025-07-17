@@ -320,8 +320,8 @@ export default function PartnerInfoForm({ onSubmit }: PartnerInfoFormProps) {
             Step 2: Answer 10 quick questions
           </p>
         </div>
-      </div>
       </form>
+      </div>
     </div>
   );
 }
